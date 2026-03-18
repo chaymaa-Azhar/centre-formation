@@ -1,59 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gestion de Centre de Formation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Une solution web complète et moderne pour la gestion administrative et pédagogique d'un centre de formation, développée avec Laravel 11 et Bootstrap 5.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Authentification & Inscription Initiale
+L'accès au portail est sécurisé par un système de rôles. Les nouveaux étudiants peuvent créer un compte et choisir leur première formation directement.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Page de Connexion | Inscription Initiale |
+| :---: | :---: |
+| ![Page de Connexion](public/screenshots/login_page.png) | ![Page d'Inscription](public/screenshots/register_page.png) |
+| *Accès sécurisé pour Admin, Formateurs et Étudiants.* | *Formulaire d'accueil pour les nouveaux étudiants.* |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
+### Espace Administrateur (Gestion Centrale)
+L'administrateur supervise l'intégralité du centre, des inscriptions aux finances.
 
-## Learning Laravel
+![Dashboard Admin](public/screenshots/admin_dashboard.png)
+*Vue globale avec statistiques de fréquentation, répartition par formation et graphes de revenus mensuels.*
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+![Inscriptions](public/screenshots/admin_inscriptions.png)
+*Validation ou refus des demandes d'inscriptions entrantes avec gestion automatisée des places.*
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Gestion Formateurs | Gestion Étudiants |
+| :---: | :---: |
+| ![Formateurs](public/screenshots/admin_formateurs.png) | ![Étudiants](public/screenshots/admin_etudiants.png) |
+| *Gestion du personnel enseignant et de leurs spécialités.* | *Liste des étudiants inscrits avec filtres de recherche.* |
 
-## Laravel Sponsors
+| Gestion Paiements | Gestion Sessions |
+| :---: | :---: |
+| ![Paiements](public/screenshots/admin_paiements.png) | ![Sessions](public/screenshots/admin_sessions.png) |
+| *Suivi comptable de toutes les transactions du centre.* | *Planification des cours (matières, horaires, jours de la semaine).* |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+### Espace Étudiant (Suivi & Nouvelles Inscriptions)
+Une fois connecté, l'étudiant dispose d'un tableau de bord complet pour suivre ses cours, ses notes et ses paiements. Il peut également s'inscrire à de nouvelles formations supplémentaires.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+![S'inscrire à une nouvelle formation](public/screenshots/student_new_enrollment.png)
+*Interface interne permettant à un étudiant déjà inscrit de postuler à d'autres formations du catalogue.*
 
-## Contributing
+![Dashboard Étudiant](public/screenshots/student_dashboard.png)
+*Résumé du profil, état des inscriptions (En attente/Validé) et accès rapide aux services.*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Mon Planning | Mes Notes |
+| :---: | :---: |
+| ![Planning Étudiant](public/screenshots/student_planning.png) | ![Mes Notes](public/screenshots/student_notes.png) |
+| *Calendrier unifié affichant les sessions de toutes les formations validées.* | *Relevé de notes détaillé avec calcul automatique de la moyenne par formation.* |
 
-## Code of Conduct
+![Mes Paiements](public/screenshots/student_paiements.png)
+*Historique complet des transactions financières et suivi du solde restant.*
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### Espace Formateur (Pédagogie)
+Le formateur gère ses classes, ses plannings de cours et l'évaluation de ses étudiants.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+![Dashboard Formateur](public/screenshots/formateur_dashboard.png)
+*Aperçu des formations assignées et des statistiques de ses classes.*
 
-## License
+| Liste des Étudiants | Saisie des Notes |
+| :---: | :---: |
+| ![Liste Étudiants](public/screenshots/formateur_etudiants.png) | ![Saisie Notes](public/screenshots/formateur_notes.png) |
+| *Visualisation des étudiants validés pour chaque formation.* | *Interface rapide pour l'attribution des notes de fin de module.* |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Planning Formateur](public/screenshots/formateur_planning.png)
+*Calendrier personnel indiquant les créneaux horaires de ses interventions.*
+
+---
+
+## Identifiants de Test (Mode Démo)
+
+| Rôle | Email | Mot de passe |
+| :--- | :--- | :--- |
+| **Admin** | `admin@centre.ma` | `admin123` |
+| **Formateur** | `hamid@centre.ma` | `Hamid123` |
+| **Étudiant** | *S'inscrire via le formulaire* | *Votre mot de passe* |
+
+---
+
+## Fonctionnalités Clés
+
+- **Multi-Rôles** : Accès sécurisés pour Administrateurs, Formateurs et Étudiants.
+- **Gestion des Places** : Système automatique de quotas (décrémentation à l'inscription, libération au refus).
+- **Planning Dynamique** : Gestion des sessions de cours avec jours de la semaine et statuts automatiques (À venir, En cours, Terminé).
+- **Système de Notation** : Les formateurs saisissent les notes, les étudiants les consultent avec calcul de moyenne.
+- **Suivi des Paiements** : Enregistrement et historique des transactions pour chaque inscription.
+- **Interface Premium** : Design responsive, sombre et élégant avec une expérience utilisateur fluide.
+
+---
+
+## Installation
+
+1. **Cloner le dépôt** :
+   ```bash
+   git clone <repository-url>
+   cd centre-formation
+   ```
+
+2. **Installer les dépendances** :
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
+
+3. **Configuration de l'environnement** :
+   - Copier `.env.example` en `.env`
+   - Configurer votre base de données dans le fichier `.env`
+   - Générer la clé d'application :
+     ```bash
+     php artisan key:generate
+     ```
+
+4. **Migration et Seeders** :
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+
+5. **Lancer le serveur** :
+   ```bash
+   php artisan serve
+   ```
+
+---
+
+Développé dans le cadre d'un projet de stage.
