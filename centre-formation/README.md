@@ -74,19 +74,45 @@ Le formateur gère ses classes, ses plannings de cours et l'évaluation de ses �
 | Rôle | Email | Mot de passe |
 | :--- | :--- | :--- |
 | **Admin** | `admin@centre.ma` | `admin123` |
-| **Formateur** | `hamid@centre.ma` | `Hamid123` |
+| **Formateur (Hamid)** | `hamid@centre.ma` | `123456` |
+| **Formateur (Hajar)** | `hajar@centre.ma` | `123456` |
+| **Formateur (Houda)** | `houda@centre.ma` | `123456` |
 | **Étudiant** | *S'inscrire via le formulaire* | *Votre mot de passe* |
 
 ---
 
 ## Fonctionnalités Clés
 
-- **Multi-Rôles** : Accès sécurisés pour Administrateurs, Formateurs et Étudiants.
-- **Gestion des Places** : Système automatique de quotas (décrémentation à l'inscription, libération au refus).
-- **Planning Dynamique** : Gestion des sessions de cours avec jours de la semaine et statuts automatiques (À venir, En cours, Terminé).
-- **Système de Notation** : Les formateurs saisissent les notes, les étudiants les consultent avec calcul de moyenne.
-- **Suivi des Paiements** : Enregistrement et historique des transactions pour chaque inscription.
-- **Interface Premium** : Design responsive, sombre et élégant avec une expérience utilisateur fluide.
+L'application regroupe l'ensemble des fonctionnalités nécessaires à la gestion moderne d'un centre de formation, réparties selon 3 rôles distincts.
+
+### 🛡️ Administration (Admin)
+- **Tableau de bord dynamique** : Vue d'ensemble en temps réel (inscriptions, revenus mensuels, nombre d'étudiants réels validés).
+- **Gestion des Formations** : Création, description, durée, tarification et définition du quota de places maximum.
+- **Système Automatisé des Places** : Décrémentation automatique des places lors de la création d'une inscription et libération automatique en cas de refus ou suppression.
+- **Gestion des Inscriptions** : Modération des demandes entrantes avec changement de statut (Validé, Refusé, En attente).
+- **Trésorerie et Comptabilité** : Enregistrement et suivi des versements, modes de paiement, montants réglés.
+- **Gestion des Sessions & Plannings** : Affectation des séminaires aux formateurs avec définition des créneaux horaires, calcul des durées, et gestion précise des jours de la semaine.
+- **Gestion du Personnel et des Élèves** : Création d'étudiants ou de formateurs en back-office avec envoi instantané et automatique de leurs identifiants sécurisés par email.
+
+### 👨‍🏫 Pédagogie (Formateur)
+- **Emploi du temps personnalisé** : Planning des sessions affichant uniquement les horaires, classes et matières qui lui sont assignées.
+- **Suivi des Classes** : Vue détaillée de la liste des étudiants officiellement validés et inscrits à ses formations.
+- **Saisie et Édition des Notes** : Interface dédiée pour évaluer ses étudiants avec un système de contrôle (interdiction d'évaluer un élève non validé).
+
+### 🎓 Apprentissage (Étudiant)
+- **Portail d'Inscription Public** : Formulaire fluide permettant aux nouveaux candidats de créer leur compte et choisir leur première formation.
+- **Catalogue Interne (Multi-Inscriptions)** : Espace interne simplifié permettant la candidature instantanée à d'autres formations supplémentaires.
+- **Suivi Académique** : Relevé de notes détaillé par matière et calcul automatique des moyennes globales.
+- **Historique Financier** : Transparence sur les paiements effectués et les versements en attente.
+- **Planning Global** : Synthèse de la totalité de ses horaires de cours regroupant l'ensemble de ses formations actives.
+
+### ⚙️ Technique & Architecture Transverse
+- **Notifications Email Intégrées** : Alertes automatiques (configurables via SMTP/Mailpit) informant l'étudiant à la création de son compte, au changement du statut de son parcours, ou lors de l'attribution d'une nouvelle note.
+- **Sécurité Multi-Guards** : Barrières d'authentification Laravel (Middlewares) séparant strictements les sessions (un étudiant ne peut accéder à l'URL d'un formateur).
+- **Protection des Données** : Mots de passe hachés (Bcrypt) et protection contre les failles CSRF sur tous les formulaires.
+- **Dockerisation Complète** : Conteneurs de développement et de base de données (MySQL) gérés dynamiquement via Laravel Sail.
+- **Design UI/UX Premium** : Interface entièrement responsive (Bootstrap 5 + Custom CSS), utilisant des palettes de couleurs harmonieuses, des icônes indicatives et des animations pour garantir une expérience utilisateur haut-de-gamme.
+
 
 ---
 
@@ -120,6 +146,31 @@ Le formateur gère ses classes, ses plannings de cours et l'évaluation de ses �
 5. **Lancer le serveur** :
    ```bash
    php artisan serve
+   ```
+
+---
+
+## Exécution avec Docker (Laravel Sail)
+
+Si vous préférez utiliser Docker, le projet est déjà configuré avec **Laravel Sail**.
+
+1. **Lancer les conteneurs** :
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+
+2. **Exécuter les migrations et seeders** (première fois) :
+   ```bash
+   ./vendor/bin/sail artisan migrate:fresh --seed
+   ```
+
+3. **Accès à l'application** :
+   - Application : `http://localhost`
+   - Mailpit (Dashboard Mail) : `http://localhost:8025`
+
+4. **Arrêter l'environnement** :
+   ```bash
+   ./vendor/bin/sail stop
    ```
 
 ---

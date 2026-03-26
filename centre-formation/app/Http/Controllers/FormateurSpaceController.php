@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\NoteAssigned;
 
 class FormateurSpaceController extends Controller
 {
@@ -82,7 +83,7 @@ class FormateurSpaceController extends Controller
             return back()->with('error', 'Action non autorisée.');
         }
 
-        \App\Models\Note::updateOrCreate(
+        $note = \App\Models\Note::updateOrCreate(
             [
                 'etudiant_id' => $request->etudiant_id,
                 'formation_id' => $request->formation_id,
@@ -91,6 +92,11 @@ class FormateurSpaceController extends Controller
             ['valeur' => $request->valeur]
         );
 
-        return back()->with('success', 'Note enregistrée avec succès.');
+        // Notification à l'étudiant
+        $etudiant = \App\Models\Etudiant::find($request->etudiant_id);
+        $formation = \App\Models\Formation::find($request->formation_id);
+        $etudiant->notify(new NoteAssigned($formation->titre, $request->valeur));
+
+        return back()->with('success', 'Note enregistrée avec succès et notification envoyée.');
     }
 }

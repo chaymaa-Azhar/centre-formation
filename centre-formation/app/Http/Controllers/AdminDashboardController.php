@@ -14,7 +14,9 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $totalInscriptions = Inscription::count();
-        $totalEtudiants = Etudiant::count();
+        $totalEtudiants = Etudiant::whereHas('inscriptions', function($q) {
+            $q->where('statut', 'Validé');
+        })->count();
         $totalFormateurs = Formateur::count();
         $totalFormations = Formation::count();
 

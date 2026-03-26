@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 
 class Etudiant extends Authenticatable
 {
+    use Notifiable;
+
     protected $fillable = [
         'nom',
         'prenom',

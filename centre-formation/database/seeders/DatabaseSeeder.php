@@ -25,19 +25,41 @@ class DatabaseSeeder extends Seeder
         ]
         );
 
-        // Création d'un formateur par défaut
-        $formateur = Formateur::updateOrCreate(
+        // Création de 3 formateurs par défaut
+        $hamid = Formateur::updateOrCreate(
             ['email' => 'hamid@centre.ma'],
             [
                 'nom' => 'Alami',
                 'prenom' => 'Hamid',
                 'specialite' => 'Développement Web',
                 'telephone' => '0601020304',
-                'password' => Hash::make('Hamid123'),
+                'password' => Hash::make('123456'),
             ]
         );
 
-        // Création de formations de test
+        $hajar = Formateur::updateOrCreate(
+            ['email' => 'hajar@centre.ma'],
+            [
+                'nom' => 'Azhar',
+                'prenom' => 'Hajar',
+                'specialite' => 'Marketing Digital',
+                'telephone' => '0605060708',
+                'password' => Hash::make('123456'),
+            ]
+        );
+
+        $houda = Formateur::updateOrCreate(
+            ['email' => 'houda@centre.ma'],
+            [
+                'nom' => 'Imssedak',
+                'prenom' => 'Houda',
+                'specialite' => 'Design Graphique',
+                'telephone' => '0609101112',
+                'password' => Hash::make('123456'),
+            ]
+        );
+
+        // Création de formations de test réparties entre les formateurs
         Formation::updateOrCreate(
             ['titre' => 'Développement Web Fullstack'],
             [
@@ -45,7 +67,7 @@ class DatabaseSeeder extends Seeder
                 'duree' => '4 mois',
                 'prix' => 2500,
                 'places' => 15,
-                'formateur_id' => $formateur->id,
+                'formateur_id' => $hamid->id,
             ]
         );
 
@@ -56,7 +78,7 @@ class DatabaseSeeder extends Seeder
                 'duree' => '3 mois',
                 'prix' => 1800,
                 'places' => 10,
-                'formateur_id' => $formateur->id,
+                'formateur_id' => $houda->id,
             ]
         );
 
@@ -67,7 +89,7 @@ class DatabaseSeeder extends Seeder
                 'duree' => '2 mois',
                 'prix' => 1500,
                 'places' => 20,
-                'formateur_id' => $formateur->id,
+                'formateur_id' => $hajar->id,
             ]
         );
     }

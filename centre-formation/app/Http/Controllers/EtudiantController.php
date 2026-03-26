@@ -8,6 +8,7 @@ use App\Models\Formation;
 use App\Models\Inscription;
 use App\Models\Paiement;
 use Carbon\Carbon;
+use App\Notifications\AccountCredentialsSent;
 
 class EtudiantController extends Controller
 {
@@ -90,8 +91,11 @@ class EtudiantController extends Controller
             'statut' => 'Payé',
         ]);
 
+        // Envoyer le mot de passe par email
+        $etudiant->notify(new AccountCredentialsSent($request->password, true));
+
         return redirect()->route('admin.etudiants.index')
-                         ->with('success', 'Étudiant ajouté avec succès');
+                         ->with('success', 'Étudiant ajouté avec succès et identifiants envoyés par email.');
     }
 
     // Formulaire edit étudiant
@@ -127,6 +131,11 @@ class EtudiantController extends Controller
         }
 
         $etudiant->update($data);
+
+        // Envoyer le nouveau mot de passe par email si modifié
+        if ($request->filled('password')) {
+            $etudiant->notify(new AccountCredentialsSent($request->password, false));
+        }
 
         return redirect()->route('admin.etudiants.index')
                          ->with('success', 'Étudiant mis à jour avec succès.');

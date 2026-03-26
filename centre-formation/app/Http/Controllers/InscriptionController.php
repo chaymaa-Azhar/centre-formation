@@ -6,6 +6,7 @@ use App\Models\Inscription;
 use App\Models\Etudiant;
 use App\Models\Formation;
 use Illuminate\Http\Request;
+use App\Notifications\InscriptionStatusUpdated;
 
 class InscriptionController extends Controller
 {
@@ -40,7 +41,11 @@ class InscriptionController extends Controller
     {
         $inscription = Inscription::findOrFail($id);
         $inscription->update(['statut' => 'Validé']);
-        return back()->with('success', 'Inscription validée avec succès.');
+
+        // Notification à l'étudiant
+        $inscription->etudiant->notify(new InscriptionStatusUpdated($inscription->formation->titre, 'Validé'));
+
+        return back()->with('success', 'Inscription validée avec succès et notification envoyée.');
     }
 
     public function refuser($id)
@@ -48,10 +53,13 @@ class InscriptionController extends Controller
         $inscription = Inscription::findOrFail($id);
         $inscription->update(['statut' => 'Refusé']);
 
+        // Notification à l'étudiant
+        $inscription->etudiant->notify(new InscriptionStatusUpdated($inscription->formation->titre, 'Refusé'));
+
         // Libérer la place
         $inscription->formation->increment('places');
 
-        return redirect()->route('admin.inscriptions.index')->with('success', 'Inscription refusée et place libérée.');
+        return redirect()->route('admin.inscriptions.index')->with('success', 'Inscription refusée, place libérée et notification envoyée.');
     }
 
     public function destroy($id)

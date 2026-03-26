@@ -19,7 +19,7 @@
                     <select name="formation_id" class="form-select @error('formation_id') is-invalid @enderror" required>
                         <option value="">Sélectionnez une formation</option>
                         @foreach($formations as $formation)
-                            <option value="{{ $formation->id }}" {{ old('formation_id', $session->formation_id) == $formation->id ? 'selected' : '' }}>{{ $formation->titre }}</option>
+                            <option value="{{ $formation->id }}" {{ old('formation_id', $session->formation_id) == $formation->id ? 'selected' : '' }}>{{ $formation->titre }} ({{ $formation->duree }})</option>
                         @endforeach
                     </select>
                     @error('formation_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -30,7 +30,7 @@
                     <select name="formateur_id" class="form-select @error('formateur_id') is-invalid @enderror" required>
                         <option value="">Sélectionnez un formateur</option>
                         @foreach($formateurs as $formateur)
-                            <option value="{{ $formateur->id }}" {{ old('formateur_id', $session->formateur_id) == $formateur->id ? 'selected' : '' }}>{{ $formateur->nom }} {{ $formateur->prenom }}</option>
+                            <option value="{{ $formateur->id }}" {{ old('formateur_id', $session->formateur_id) == $formateur->id ? 'selected' : '' }}>{{ $formateur->nom }} {{ $formateur->prenom }} - Spécialité : {{ $formateur->specialite }}</option>
                         @endforeach
                     </select>
                     @error('formateur_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
