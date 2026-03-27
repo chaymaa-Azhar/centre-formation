@@ -30,8 +30,8 @@
                     @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Téléphone</label>
-                    <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone', $etudiant->telephone) }}">
+                    <label class="form-label form-label-required">Téléphone</label>
+                    <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone', $etudiant->telephone) }}" required>
                     @error('telephone') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="col-md-6">

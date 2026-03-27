@@ -107,11 +107,14 @@ L'application regroupe l'ensemble des fonctionnalités nécessaires à la gestio
 - **Planning Global** : Synthèse de la totalité de ses horaires de cours regroupant l'ensemble de ses formations actives.
 
 ### ⚙️ Technique & Architecture Transverse
-- **Notifications Email Intégrées** : Alertes automatiques (configurables via SMTP/Mailpit) informant l'étudiant à la création de son compte, au changement du statut de son parcours, ou lors de l'attribution d'une nouvelle note.
+- **Notifications Email Intégrées (SMTP/Mailpit)** : Un système robuste d'alertes automatiques qui notifie instantanément les acteurs :
+  - **Identifiants & Inscription** : L'étudiant reçoit son compte, est alerté du changement de statut de sa candidature ou si son **affectation à une formation est modifiée** par l'admin.
+  - **Alertes Académiques** : L'étudiant est notifié dès qu'un formateur lui attribue une nouvelle note.
+  - **Gestion des Plannings (Nouveauté)** : **Le formateur et les étudiants** sont alertés lors de la **programmation d'une session** ou de sa **modification**. Le système identifie intelligemment les champs modifiés (date, heure, formateur) pour les préciser dans l'email.
 - **Sécurité Multi-Guards** : Barrières d'authentification Laravel (Middlewares) séparant strictements les sessions (un étudiant ne peut accéder à l'URL d'un formateur).
 - **Protection des Données** : Mots de passe hachés (Bcrypt) et protection contre les failles CSRF sur tous les formulaires.
 - **Dockerisation Complète** : Conteneurs de développement et de base de données (MySQL) gérés dynamiquement via Laravel Sail.
-- **Design UI/UX Premium** : Interface entièrement responsive (Bootstrap 5 + Custom CSS), utilisant des palettes de couleurs harmonieuses, des icônes indicatives et des animations pour garantir une expérience utilisateur haut-de-gamme.
+- **Design UI/UX Premium** : Interface entièrement responsive (Bootstrap 5 + Custom CSS), utilisant des palettes de couleurs harmonieuses, des icônes indicatives, un logo personnalisé dynamique, et des animations pour garantir une expérience utilisateur.
 
 
 ---

@@ -61,6 +61,7 @@ class AuthController extends Controller
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:etudiants,email',
+            'telephone' => 'required|string|max:20',
             'password' => 'required|string|min:6|confirmed',
             'formation_id' => 'required|exists:formations,id',
             'mode_paiement' => 'required|string',
@@ -77,6 +78,7 @@ class AuthController extends Controller
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'email' => $request->email,
+            'telephone' => $request->telephone,
             'password' => bcrypt($request->password),
             'formation_id' => $request->formation_id,
         ]);

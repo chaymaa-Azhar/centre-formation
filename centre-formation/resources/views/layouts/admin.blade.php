@@ -26,9 +26,18 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar text-white shadow">
-            <div class="p-4 text-center border-bottom border-secondary">
-                <h4 class="mb-0 fw-bold">Centre Formation</h4>
-                <small class="text-muted">Espace Admin</small>
+            <div class="p-3 border-bottom border-secondary d-flex flex-column align-items-center">
+                <div class="d-flex align-items-center gap-3 mb-2" style="user-select: none;">
+                    <!-- L'image du logo (sera remplacée par une icône si l'image n'est pas encore dans le dossier public) -->
+                    <img src="{{ asset('logo.png') }}" alt="Logo" style="height: 40px; width: auto; object-fit: contain;" onerror="this.outerHTML='<i class=\'bi bi-mortarboard-fill text-info\' style=\'font-size: 2.2rem;\'></i>'">
+                    
+                    <!-- Le texte normal sur une seule ligne -->
+                    <h5 class="mb-0 fw-bolder text-white text-nowrap" style="letter-spacing: 0.5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Centre Formation</h5>
+                </div>
+                
+                <span class="badge border border-secondary text-light rounded-pill px-3 mt-1" style="background-color: rgba(255,255,255,0.05); font-size: 0.70rem; letter-spacing: 1px;">
+                    ESPACE ADMIN
+                </span>
             </div>
             <ul class="nav flex-column py-3">
                 <li class="nav-item">

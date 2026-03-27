@@ -29,8 +29,8 @@
                     @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Téléphone</label>
-                    <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone') }}">
+                    <label class="form-label form-label-required">Téléphone</label>
+                    <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone') }}" required>
                     @error('telephone') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="col-md-6">
@@ -61,12 +61,12 @@
                 <div class="col-12">
                     <h6 class="fw-bold text-primary"><i class="bi bi-cash-stack me-1"></i> Informations de Paiement (Initial)</h6>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label form-label-required">Montant payé (MAD)</label>
+                <div class="col-md-4">
+                    <label class="form-label form-label-required">Montant à régler (MAD)</label>
                     <input type="number" step="0.01" name="montant" id="montant" class="form-control @error('montant') is-invalid @enderror" value="{{ old('montant') }}" required>
                     @error('montant') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="form-label form-label-required">Mode de paiement</label>
                     <select name="mode_paiement" class="form-select @error('mode_paiement') is-invalid @enderror" required>
                         <option value="Espèces" {{ old('mode_paiement') == 'Espèces' ? 'selected' : '' }}>Espèces</option>
@@ -74,6 +74,14 @@
                         <option value="Chèque" {{ old('mode_paiement') == 'Chèque' ? 'selected' : '' }}>Chèque</option>
                     </select>
                     @error('mode_paiement') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label form-label-required">Statut du paiement</label>
+                    <select name="statut_paiement" class="form-select @error('statut_paiement') is-invalid @enderror" required>
+                        <option value="Payé" {{ old('statut_paiement') == 'Payé' ? 'selected' : '' }}>Payé</option>
+                        <option value="En attente" {{ old('statut_paiement') == 'En attente' ? 'selected' : '' }}>En attente</option>
+                    </select>
+                    @error('statut_paiement') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
             </div>
 

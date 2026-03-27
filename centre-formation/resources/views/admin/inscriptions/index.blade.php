@@ -59,7 +59,8 @@
                         <td>{{ $i->created_at->format('d/m/Y H:i') }}</td>
                         <td>
                             <div class="fw-bold">{{ $i->etudiant->nom }} {{ $i->etudiant->prenom }}</div>
-                            <small class="text-muted">{{ $i->etudiant->email }}</small>
+                            <small class="text-muted d-block"><i class="bi bi-envelope me-1"></i>{{ $i->etudiant->email }}</small>
+                            <small class="text-muted d-block"><i class="bi bi-telephone me-1"></i>{{ $i->etudiant->telephone }}</small>
                         </td>
                         <td>{{ $i->formation->titre }}</td>
                         <td>

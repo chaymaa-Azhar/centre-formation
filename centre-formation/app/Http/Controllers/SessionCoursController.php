@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\SessionCours;
 use App\Models\Formation;
 use App\Models\Formateur;
+use App\Models\Etudiant;
+use App\Notifications\SessionUpdated;
+use App\Notifications\SessionCreated;
 use Illuminate\Http\Request;
 
 class SessionCoursController extends Controller
@@ -64,8 +67,24 @@ class SessionCoursController extends Controller
             return back()->withErrors(['date_fin' => "La durée de la session doit correspondre à la durée de la formation ({$formation->duree}). Date de fin attendue : " . $expectedEndDate->format('d/m/Y')])->withInput();
         }
 
-        SessionCours::create($validated);
-        return redirect()->route('admin.sessions.index')->with('success', 'Session ajoutée avec succès.');
+        $session = SessionCours::create($validated);
+
+        // Envoyer la notification au formateur
+        if ($session->formateur) {
+            $session->formateur->notify(new SessionCreated($session, 'formateur'));
+        }
+
+        // Envoyer la notification aux étudiants concernés
+        $etudiants = Etudiant::whereHas('inscriptions', function($query) use ($session) {
+            $query->where('formation_id', $session->formation_id)
+                  ->where('statut', 'Validé');
+        })->get();
+
+        foreach ($etudiants as $etudiant) {
+            $etudiant->notify(new SessionCreated($session, 'etudiant'));
+        }
+
+        return redirect()->route('admin.sessions.index')->with('success', 'Session ajoutée avec succès et plannings envoyés.');
     }
 
     public function edit($id)
@@ -98,8 +117,32 @@ class SessionCoursController extends Controller
             return back()->withErrors(['date_fin' => "La durée de la session doit correspondre à la durée de la formation ({$formation->duree}). Date de fin attendue : " . $expectedEndDate->format('d/m/Y')])->withInput();
         }
 
-        $session->update($validated);
-        return redirect()->route('admin.sessions.index')->with('success', 'Session modifiée avec succès.');
+        // Normaliser les heures et les dates pour éviter que Laravel considère qu'elles ont changé (10:00 vs 10:00:00)
+        $validated['heure_debut'] = \Carbon\Carbon::parse($validated['heure_debut'])->format('H:i:s');
+        $validated['heure_fin'] = \Carbon\Carbon::parse($validated['heure_fin'])->format('H:i:s');
+        $validated['date_debut'] = \Carbon\Carbon::parse($validated['date_debut'])->format('Y-m-d');
+        $validated['date_fin'] = \Carbon\Carbon::parse($validated['date_fin'])->format('Y-m-d');
+
+        $session->fill($validated);
+        $dirtyChanges = $session->getDirty();
+        $session->save();
+
+        // Envoyer la notification au formateur
+        if ($session->formateur) {
+            $session->formateur->notify(new SessionUpdated($session, 'formateur', $dirtyChanges));
+        }
+
+        // Envoyer la notification aux étudiants (inscriptions validées uniquement)
+        $etudiants = Etudiant::whereHas('inscriptions', function($query) use ($session) {
+            $query->where('formation_id', $session->formation_id)
+                  ->where('statut', 'Validé');
+        })->get();
+
+        foreach ($etudiants as $etudiant) {
+            $etudiant->notify(new SessionUpdated($session, 'etudiant', $dirtyChanges));
+        }
+
+        return redirect()->route('admin.sessions.index')->with('success', 'Session modifiée avec succès. Notifications envoyées.');
     }
 
     private function calculateExpectedEndDate($startDate, $durationString)

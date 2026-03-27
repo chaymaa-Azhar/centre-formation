@@ -50,7 +50,8 @@
                     <tr>
                         <td>
                             <div class="fw-bold">{{ $paiement->etudiant->nom ?? 'N/A' }} {{ $paiement->etudiant->prenom ?? '' }}</div>
-                            <small class="text-muted"><i class="bi bi-book me-1"></i>{{ $paiement->formation->titre ?? 'N/A' }}</small>
+                            <small class="text-muted d-block"><i class="bi bi-telephone me-1"></i>{{ $paiement->etudiant->telephone ?? 'N/A' }}</small>
+                            <small class="text-muted d-block"><i class="bi bi-book me-1"></i>{{ $paiement->formation->titre ?? 'N/A' }}</small>
                         </td>
                         <td>
                             <div class="fw-semibold text-success">{{ number_format($paiement->montant, 2) }} MAD</div>

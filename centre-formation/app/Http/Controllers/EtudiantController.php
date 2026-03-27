@@ -9,6 +9,7 @@ use App\Models\Inscription;
 use App\Models\Paiement;
 use Carbon\Carbon;
 use App\Notifications\AccountCredentialsSent;
+use App\Notifications\FormationChanged;
 
 class EtudiantController extends Controller
 {
@@ -47,11 +48,12 @@ class EtudiantController extends Controller
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:etudiants,email',
-            'telephone' => 'nullable|string|max:20',
+            'telephone' => 'required|string|max:20',
             'password' => 'required|string|min:6',
             'formation_id' => 'required|exists:formations,id',
             'montant' => 'required|numeric|min:0',
             'mode_paiement' => 'required|string',
+            'statut_paiement' => 'required|string|in:Payé,En attente',
         ]);
 
         $formation = Formation::findOrFail($request->formation_id);
@@ -88,7 +90,7 @@ class EtudiantController extends Controller
             'montant' => $request->montant,
             'mode_paiement' => $request->mode_paiement,
             'date_paiement' => Carbon::now(),
-            'statut' => 'Payé',
+            'statut' => $request->statut_paiement,
         ]);
 
         // Envoyer le mot de passe par email
@@ -113,7 +115,7 @@ class EtudiantController extends Controller
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:etudiants,email,' . $etudiant->id,
-            'telephone' => 'nullable|string|max:20',
+            'telephone' => 'required|string|max:20',
             'formation_id' => 'required|exists:formations,id',
             'password' => 'nullable|string|min:6',
         ]);
@@ -130,11 +132,44 @@ class EtudiantController extends Controller
             $data['password'] = bcrypt($request->password);
         }
 
+        $oldFormationId = $etudiant->formation_id;
         $etudiant->update($data);
 
         // Envoyer le nouveau mot de passe par email si modifié
         if ($request->filled('password')) {
             $etudiant->notify(new AccountCredentialsSent($request->password, false));
+        }
+
+        // Si la formation a changé, on met à jour l'inscription et on notifie
+        if ($request->formation_id != $oldFormationId) {
+            $oldFormation = Formation::find($oldFormationId);
+            $newFormation = Formation::find($request->formation_id);
+
+            // Mettre à jour l'inscription validée correspondante
+            $inscription = Inscription::where('etudiant_id', $etudiant->id)
+                ->where('formation_id', $oldFormationId)
+                ->where('statut', 'Validé')
+                ->first();
+
+            if ($inscription) {
+                // On libère la place de l'ancienne formation
+                $oldFormation->increment('places');
+                
+                // On décrémente la place de la nouvelle formation
+                $newFormation->decrement('places');
+
+                $inscription->update([
+                    'formation_id' => $request->formation_id
+                ]);
+
+                // Mettre à jour aussi le paiement associé
+                Paiement::where('etudiant_id', $etudiant->id)
+                    ->where('formation_id', $oldFormationId)
+                    ->update(['formation_id' => $request->formation_id]);
+
+                // Notifier l'étudiant
+                $etudiant->notify(new FormationChanged($oldFormation, $newFormation));
+            }
         }
 
         return redirect()->route('admin.etudiants.index')

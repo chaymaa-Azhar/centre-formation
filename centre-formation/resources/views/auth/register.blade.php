@@ -58,6 +58,15 @@
                         @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
+                
+                <div class="col-md-12">
+                    <label class="form-label form-label-required">Numéro de Téléphone</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                        <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone') }}" required>
+                        @error('telephone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                </div>
 
                 <div class="col-md-12">
                     <label class="form-label fw-bold">Choisir une formation</label>
