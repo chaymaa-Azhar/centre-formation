@@ -29,6 +29,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth:web')->prefix('admin')->name('admin.')->group(function() {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
+    Route::get('etudiants/export', [EtudiantController::class, 'exportPdf'])->name('etudiants.export');
     Route::resource('etudiants', EtudiantController::class);
     Route::resource('formateurs', FormateurController::class);
     Route::resource('formations', FormationController::class);
@@ -49,6 +50,7 @@ Route::middleware('auth:etudiant')->prefix('etudiant')->name('etudiant.')->group
     Route::get('/dashboard', [EtudiantSpaceController::class, 'dashboard'])->name('dashboard');
     Route::get('/planning', [EtudiantSpaceController::class, 'planning'])->name('planning');
     Route::get('/notes', [EtudiantSpaceController::class, 'notes'])->name('notes');
+    Route::get('/notes/export', [EtudiantSpaceController::class, 'exportPdf'])->name('notes.export');
     Route::get('/paiements', [EtudiantSpaceController::class, 'paiements'])->name('paiements');
     
     // Inscriptions
@@ -61,6 +63,7 @@ Route::middleware('auth:etudiant')->prefix('etudiant')->name('etudiant.')->group
 Route::middleware('auth:formateur')->prefix('formateur')->name('formateur.')->group(function() {
     Route::get('/dashboard', [FormateurSpaceController::class, 'dashboard'])->name('dashboard');
     Route::get('/etudiants', [FormateurSpaceController::class, 'etudiants'])->name('etudiants');
+    Route::get('/etudiants/export', [FormateurSpaceController::class, 'exportEtudiantsPdf'])->name('etudiants.export');
     Route::get('/planning', [FormateurSpaceController::class, 'planning'])->name('planning');
     Route::get('/notes', [FormateurSpaceController::class, 'notes'])->name('notes');
     Route::get('/notes/formation/{formation_id}', [FormateurSpaceController::class, 'showNotesForm'])->name('notes.create');

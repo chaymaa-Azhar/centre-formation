@@ -37,6 +37,24 @@ class FormateurSpaceController extends Controller
         return view('formateur.etudiants', compact('etudiants'));
     }
 
+    public function exportEtudiantsPdf()
+    {
+        $formateur = Auth::guard('formateur')->user();
+        $etudiants = \App\Models\Etudiant::whereHas('inscriptions', function($q) use ($formateur) {
+                $q->whereIn('formation_id', $formateur->formations()->pluck('id'))
+                  ->where('statut', 'Validé');
+            })
+            ->with(['inscriptions' => function($q) use ($formateur) {
+                $q->whereIn('formation_id', $formateur->formations()->pluck('id'))
+                  ->where('statut', 'Validé');
+            }, 'inscriptions.formation'])
+            ->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.formateur_etudiants', compact('formateur', 'etudiants'));
+        $nomFichier = 'mes_etudiants_' . strtolower(str_replace(' ', '_', $formateur->nom)) . '_' . date('Ymd') . '.pdf';
+        return $pdf->download($nomFichier);
+    }
+
     public function planning()
     {
         $formateur = Auth::guard('formateur')->user();

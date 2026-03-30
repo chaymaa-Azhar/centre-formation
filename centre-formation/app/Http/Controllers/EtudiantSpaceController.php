@@ -49,6 +49,18 @@ class EtudiantSpaceController extends Controller
         return view('etudiant.notes', compact('etudiant', 'notes'));
     }
 
+    public function exportPdf()
+    {
+        $etudiant = Auth::guard('etudiant')->user();
+        $notes = $etudiant->notes()->with(['formation', 'formateur'])->get();
+        
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.releve_notes', compact('etudiant', 'notes'));
+        
+        $nomFichier = 'releve_notes_' . strtolower(str_replace(' ', '_', $etudiant->nom)) . '_' . strtolower(str_replace(' ', '_', $etudiant->prenom)) . '.pdf';
+        
+        return $pdf->download($nomFichier);
+    }
+
     public function paiements()
     {
         $etudiant = Auth::guard('etudiant')->user();

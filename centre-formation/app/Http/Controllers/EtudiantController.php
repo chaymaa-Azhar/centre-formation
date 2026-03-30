@@ -34,6 +34,17 @@ class EtudiantController extends Controller
         return view('admin.etudiants.index', compact('etudiants'));
     }
 
+    public function exportPdf()
+    {
+        $etudiants = \App\Models\Etudiant::with(['inscriptions.formation'])
+            ->whereHas('inscriptions', function($q) {
+                $q->where('statut', 'Validé');
+            })->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.admin_etudiants', compact('etudiants'));
+        return $pdf->download('liste_etudiants_' . date('Ymd') . '.pdf');
+    }
+
     // Formulaire ajout étudiant
     public function create()
     {
