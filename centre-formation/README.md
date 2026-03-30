@@ -108,13 +108,13 @@ L'application regroupe l'ensemble des fonctionnalités nécessaires à la gestio
 
 ### ⚙️ Technique & Architecture Transverse
 - **Notifications Email Intégrées (SMTP/Mailpit)** : Un système robuste d'alertes automatiques qui notifie instantanément les acteurs :
-  - **Identifiants & Inscription** : L'étudiant reçoit son compte, est alerté du changement de statut de sa candidature ou si son **affectation à une formation est modifiée** par l'admin.
+  - **Identifiants & Sécurité** : Les étudiants et les formateurs reçoivent automatiquement leurs identifiants lors de la création de leur compte. Ils sont également notifiés de manière sécurisée en cas de réinitialisation de leur mot de passe par l'administration.
   - **Alertes Académiques** : L'étudiant est notifié dès qu'un formateur lui attribue une nouvelle note.
   - **Gestion des Plannings (Nouveauté)** : **Le formateur et les étudiants** sont alertés lors de la **programmation d'une session** ou de sa **modification**. Le système identifie intelligemment les champs modifiés (date, heure, formateur) pour les préciser dans l'email.
 - **Sécurité Multi-Guards** : Barrières d'authentification Laravel (Middlewares) séparant strictements les sessions (un étudiant ne peut accéder à l'URL d'un formateur).
 - **Protection des Données** : Mots de passe hachés (Bcrypt) et protection contre les failles CSRF sur tous les formulaires.
-- **Dockerisation Complète** : Conteneurs de développement et de base de données (MySQL) gérés dynamiquement via Laravel Sail.
-- **Design UI/UX Premium** : Interface entièrement responsive (Bootstrap 5 + Custom CSS), utilisant des palettes de couleurs harmonieuses, des icônes indicatives, un logo personnalisé dynamique, et des animations pour garantir une expérience utilisateur.
+- **Dockerisation Complète** : Conteneurs de développement et base de données gérés via Laravel Sail, avec une configuration réseau optimisée et robuste (Port 8085) pour prévenir tout conflit logiciel sous l'environnement Windows/WSL2.
+- **Design UI/UX Premium & Mode Sombre** : Interface responsive (Bootstrap 5 + Custom CSS) enrichie d'un **Mode Sombre (Dark Mode) intelligent**. Le système garantit une lisibilité parfaite en ajustant dynamiquement les contrastes des tableaux et des statuts (badges) via des règles CSS de haute spécificité.
 
 
 ---
@@ -168,8 +168,8 @@ Si vous préférez utiliser Docker, le projet est déjà configuré avec **Larav
    ```
 
 3. **Accès à l'application** :
-   - Application : `http://localhost`
-   - Mailpit (Dashboard Mail) : `http://localhost:8025`
+   - Application : `http://localhost:8085`
+   - Mailpit (Dashboard Mail) : `http://localhost:8030`
 
 4. **Arrêter l'environnement** :
    ```bash

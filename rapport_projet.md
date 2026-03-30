@@ -14,10 +14,10 @@ Ce projet a consisté en l'analyse, la conception et le développement d'une **s
 Le projet a été pensé pour être moderne, maintenable et facilement déployable.
 
 *   **Back-end** : Framework **Laravel 11** (PHP 8.2+). Choisi pour sa robustesse, son architecture MVC et son ORM avancé (Eloquent).
-*   **Front-end** : Moteur de templates **Blade**, stylisé avec **Bootstrap 5** et du CSS personnalisé pour assurer une interface premium, responsive et ergonomique.
+*   **Front-end** : Moteur de templates **Blade**, stylisé avec **Bootstrap 5** et du CSS personnalisé. L'interface premium inclut un système de **Mode Sombre (Dark Mode)** avancé avec persistance des préférences utilisateur et gestion stricte des contrastes conditionnels sur les tableaux.
 *   **Base de Données** : **MySQL 8.0**, intégrée avec le système de migrations de Laravel.
 *   **Infrastructure & DevOps** : Containerisation complète avec **Docker** via **Laravel Sail**, permettant d'isoler l'environnement de développement (Serveur Web, DB, Mailpit).
-*   **Serveur d'Email (Test)** : Implémentation de **Mailpit** sur le port 8025 pour l'interception et le débogage sécurisé des envois locaux d'emails.
+*   **Serveur d'Email (Test)** : Implémentation de **Mailpit** sur le port 8030 pour l'interception et le débogage sécurisé des envois locaux d'emails.
 
 ---
 
@@ -60,7 +60,7 @@ Portail dédié au suivi académique de l'élève.
 
 *   **Authentification Multi-Guards** : Séparation stricte des sessions de connexion via les middlewares Laravel. Un étudiant ne peut en aucun cas accéder à une route réservée à un formateur ou à l'administrateur.
 *   **Système Complet de Notifications par Email (Mailpit)** :
-    1.  **Envoi Sécurisé d'Identifiants** : Lors de la création d'un étudiant par l'admin, un email de bienvenue lui est expédié avec son mot de passe en clair. S'il est modifié, un email de mise à jour lui parvient.
+    1.  **Envoi Sécurisé d'Identifiants** : Lors de la création d'un étudiant ou d'un formateur, un email de bienvenue lui est automatiquement expédié avec son mot de passe. Si ce mot de passe est réinitialisé par l'administration, une notification de mise à jour lui parvient instantanément.
     2.  **Statut d'Inscription** : Un email prévient l'étudiant lorsque l'administration valide/refuse son dossier ou **modifie sa formation d'affectation**.
     3.  **Alertes Pédagogiques** : Notification envoyée par email à chaque publication d'une nouvelle note par un formateur.
     4.  **Création et Mise à jour des Plannings** : Les étudiants et le formateur reçoivent un e-mail automatique dès qu'une session est **créée** ou **modifiée**. En cas de modification, le système détecte et précise intelligemment quels champs ont été impactés (ex: changement d'heure ou de formateur).
