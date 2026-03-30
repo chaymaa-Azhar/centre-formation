@@ -134,7 +134,7 @@
                         <tbody>
                             @forelse($paiementsRecents as $paiement)
                             <tr>
-                                <td>{{ $paiement->etudiant->nom }}</td>
+                                <td>{{ $paiement->etudiant->nom }} {{ $paiement->etudiant->prenom }}</td>
                                 <td class="fw-bold">{{ $paiement->montant }} MAD</td>
                                 <td>
                                     <span class="badge bg-{{ $paiement->statut == 'Payé' ? 'success' : 'warning text-dark' }}">
