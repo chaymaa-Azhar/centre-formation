@@ -49,7 +49,7 @@ class AccountCredentialsSent extends Notification
                     ->greeting('Bonjour ' . $notifiable->prenom . ' !');
 
         if ($this->isNewAccount) {
-            $message->line('Un compte étudiant a été créé pour vous par l\'administration.');
+            $message->line('Un compte a été créé pour vous par l\'administration.');
         } else {
             $message->line('Votre mot de passe a été réinitialisé par l\'administration.');
         }

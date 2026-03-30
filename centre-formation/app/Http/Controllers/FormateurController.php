@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Formateur;
+use App\Notifications\AccountCredentialsSent;
 
 class FormateurController extends Controller
 {
@@ -47,7 +48,10 @@ class FormateurController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
-        Formateur::create($data);
+        $formateur = Formateur::create($data);
+
+        // Envoyer un email avec les identifiants
+        $formateur->notify(new AccountCredentialsSent($request->password, true));
 
         return redirect()->route('admin.formateurs.index')
                          ->with('success', 'Formateur ajouté avec succès.');
@@ -77,6 +81,11 @@ class FormateurController extends Controller
         }
 
         $formateur->update($data);
+
+        // Si le mot de passe a été modifié, envoyer une notification
+        if ($request->filled('password')) {
+            $formateur->notify(new AccountCredentialsSent($request->password, false));
+        }
 
         return redirect()->route('admin.formateurs.index')
                          ->with('success', 'Formateur mis à jour avec succès.');
