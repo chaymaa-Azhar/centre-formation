@@ -40,12 +40,14 @@ Véritable tour de contrôle du centre, l'administrateur possède tous les droit
 *   **Création de Sessions Enrichie** : Assignation des cours dans le planning des formateurs, en visualisant directement la *durée* de la formation et la *spécialité* de l'enseignant.
 *   **Interface Personnalisée** : Intégration d'un header/logo "Centre Formation" customisé combinant texte et image dans la navigation.
 *   **Suivi Trésorerie** : Carnet de paiements retraçant l'historique de chaque versement étudiant (statuts Payé / En attente).
+*   **Export PDF Administratif** : Génération d'un document PDF officiel de la liste complète des étudiants inscrits, exportable en un clic depuis le tableau de bord.
 
 ### 👨‍🏫 B. Espace Formateur (Pédagogie)
 Conçu pour faciliter la vie du corps professoral, cet espace ne montre au formateur que les informations qui le concernent.
 *   **Planning Dynamique** : Visualisation de son propre emploi du temps. Les statuts des cours (À venir, En cours, Terminé) changent de couleur automatiquement en fonction de la date du jour.
 *   **Liste de Classes** : Accès à la liste de ses étudiants, filtrée par le système pour n'afficher **que les étudiants dont l'inscription a été validée par l'admin**.
 *   **Saisie des Notes Sécurisée** : Interface permettant d'attribuer une note sur 20 par matière enseignée, bloquée s'il n'est pas le formateur titulaire.
+*   **Export PDF de la Liste de Classe** : Le formateur peut télécharger en PDF la liste complète de ses étudiants validés avec leurs informations de contact.
 
 ### 🎓 C. Espace Étudiant (Portail Apprenant)
 Portail dédié au suivi académique de l'élève.
@@ -53,6 +55,7 @@ Portail dédié au suivi académique de l'élève.
 *   **Suivi Cursus** : Tableau de bord résumant ses candidatures en cours ou validées.
 *   **Planning Consolidé** : Vue globale de son emploi du temps regroupant les sessions de *toutes* ses formations actives.
 *   **Relevé de Notes & Financier** : Affichage de ses évaluations avec moyenne automatique et suivi transparent de ses paiements.
+*   **Export PDF du Relevé de Notes** : L'étudiant peut générer et télécharger un relevé de notes officiel et personnalisé en format PDF, incluant ses résultats, ses appréciations et sa moyenne générale.
 
 ---
 

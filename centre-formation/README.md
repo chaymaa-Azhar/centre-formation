@@ -31,7 +31,7 @@ L'administrateur supervise l'intégralité du centre, des inscriptions aux finan
 | Gestion Formateurs | Gestion Étudiants |
 | :---: | :---: |
 | ![Formateurs](public/screenshots/admin_formateurs.png) | ![Étudiants](public/screenshots/admin_etudiants.png) |
-| *Gestion du personnel enseignant et de leurs spécialités.* | *Liste des étudiants inscrits avec filtres de recherche.* |
+| *Gestion du personnel enseignant et de leurs spécialités.* | *Liste des étudiants inscrits avec filtres de recherche et **export PDF** de la liste complète.* |
 
 | Gestion Paiements | Gestion Sessions |
 | :---: | :---: |
@@ -57,6 +57,8 @@ Une fois connecté, l'étudiant dispose d'un tableau de bord complet pour suivre
 ![Mes Paiements](public/screenshots/student_paiements.png)
 *Historique complet des transactions financières et suivi du solde restant.*
 
+> 📄 **Export PDF** : L'étudiant peut télécharger son **relevé de notes officiel** en PDF directement depuis la page "Mes Notes". Le fichier généré inclut le nom de l'étudiant, ses résultats, ses appréciations et sa moyenne générale.
+
 ---
 
 ### Espace Formateur (Pédagogie)
@@ -72,6 +74,8 @@ Le formateur gère ses classes, ses plannings de cours et l'évaluation de ses �
 
 ![Planning Formateur](public/screenshots/formateur_planning.png)
 *Calendrier personnel indiquant les créneaux horaires de ses interventions.*
+
+> 📄 **Export PDF** : Le formateur peut télécharger la **liste complète de sa classe** (tous ses étudiants validés) en PDF directement depuis la page "Mes Étudiants". Le document inclut les informations de contact et les formations concernées.
 
 ---
 
