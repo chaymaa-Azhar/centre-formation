@@ -2,6 +2,9 @@
 
 Une solution web complète et moderne pour la gestion administrative et pédagogique d'un centre de formation, développée avec Laravel 11 et Bootstrap 5.
 
+![Démo Dark Mode](public/screenshots/dark_mode_demo.gif)
+*L'interface intègre un Mode Sombre (Dark Mode) intelligent et fluide pour un confort visuel optimal.*
+
 ---
 
 ### Authentification & Inscription Initiale
@@ -21,6 +24,9 @@ L'administrateur supervise l'intégralité du centre, des inscriptions aux finan
 
 ![Inscriptions](public/screenshots/admin_inscriptions.png)
 *Validation ou refus des demandes d'inscriptions entrantes avec gestion automatisée des places.*
+
+![Formations](public/screenshots/admin_formations.png)
+*Catalogue de formations avec tarification, durée et contrôle rigoureux du quota de places maximum.*
 
 | Gestion Formateurs | Gestion Étudiants |
 | :---: | :---: |
@@ -74,9 +80,9 @@ Le formateur gère ses classes, ses plannings de cours et l'évaluation de ses �
 | Rôle | Email | Mot de passe |
 | :--- | :--- | :--- |
 | **Admin** | `admin@centre.ma` | `admin123` |
-| **Formateur (Hamid)** | `hamid@centre.ma` | `123456` |
-| **Formateur (Hajar)** | `hajar@centre.ma` | `123456` |
-| **Formateur (Houda)** | `houda@centre.ma` | `123456` |
+| **Formateur (Prof 1)** | `prof1@centre.ma` | `123456` |
+| **Formateur (Prof 2)** | `prof2@centre.ma` | `123456` |
+| **Formateur (Prof 3)** | `prof3@centre.ma` | `123456` |
 | **Étudiant** | *S'inscrire via le formulaire* | *Votre mot de passe* |
 
 ---
@@ -107,10 +113,17 @@ L'application regroupe l'ensemble des fonctionnalités nécessaires à la gestio
 - **Planning Global** : Synthèse de la totalité de ses horaires de cours regroupant l'ensemble de ses formations actives.
 
 ### ⚙️ Technique & Architecture Transverse
-- **Notifications Email Intégrées (SMTP/Mailpit)** : Un système robuste d'alertes automatiques qui notifie instantanément les acteurs :
-  - **Identifiants & Sécurité** : Les étudiants et les formateurs reçoivent automatiquement leurs identifiants lors de la création de leur compte. Ils sont également notifiés de manière sécurisée en cas de réinitialisation de leur mot de passe par l'administration.
-  - **Alertes Académiques** : L'étudiant est notifié dès qu'un formateur lui attribue une nouvelle note.
-  - **Gestion des Plannings (Nouveauté)** : **Le formateur et les étudiants** sont alertés lors de la **programmation d'une session** ou de sa **modification**. Le système identifie intelligemment les champs modifiés (date, heure, formateur) pour les préciser dans l'email.
+- **Notifications Email Automatiques (SMTP/Mailpit)** : Un système robuste qui garantit la bonne diffusion de l'information entre l'administration, les formateurs et les étudiants.
+  
+  ![Boîte de réception Mailpit](public/screenshots/mailpit.png)
+  *Capture du serveur de messagerie local captant les emails envoyés par l'application.*
+
+  **Les 5 scénarios déclenchant un email automatique :**
+  1. **Création de Compte** : Lors de l'inscription par l'Administrateur, le nouvel Étudiant ou Formateur reçoit un "Email de Bienvenue" contenant le lien de connexion et son mot de passe inviolable temporaire.
+  2. **Réinitialisation Sécurisée** : Si un compte est bloqué, la regénération du mot de passe par l'Admin déclenche l'envoi d'un email d'alerte privé à l'utilisateur avec son nouvel accès.
+  3. **Attribution d'une Note** : L'étudiant reçoit un email d'information instantané l'invitant à consulter son Espace dès qu'un formateur saisit sa note.
+  4. **Nouvelle Session Pédagogique** : La création d'un Séminaire/Cours envoie le planning directement dans la boite mail de tous les Étudiants de la formation ciblée ET du Formateur en charge de l'enseigner.
+  5. **Mise à Jour Intelligente du Planning** : En cas de changement (heure, date de début/fin ou changement exceptionnel de formateur), le système envoie un email "Mise à Jour de Planning" pour signaler uniquement les nouvelles modifications.
 - **Sécurité Multi-Guards** : Barrières d'authentification Laravel (Middlewares) séparant strictements les sessions (un étudiant ne peut accéder à l'URL d'un formateur).
 - **Protection des Données** : Mots de passe hachés (Bcrypt) et protection contre les failles CSRF sur tous les formulaires.
 - **Dockerisation Complète** : Conteneurs de développement et base de données gérés via Laravel Sail, avec une configuration réseau optimisée et robuste (Port 8085) pour prévenir tout conflit logiciel sous l'environnement Windows/WSL2.

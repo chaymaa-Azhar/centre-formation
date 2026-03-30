@@ -16,7 +16,7 @@ Le projet a été pensé pour être moderne, maintenable et facilement déployab
 *   **Back-end** : Framework **Laravel 11** (PHP 8.2+). Choisi pour sa robustesse, son architecture MVC et son ORM avancé (Eloquent).
 *   **Front-end** : Moteur de templates **Blade**, stylisé avec **Bootstrap 5** et du CSS personnalisé. L'interface premium inclut un système de **Mode Sombre (Dark Mode)** avancé avec persistance des préférences utilisateur et gestion stricte des contrastes conditionnels sur les tableaux.
 *   **Base de Données** : **MySQL 8.0**, intégrée avec le système de migrations de Laravel.
-*   **Infrastructure & DevOps** : Containerisation complète avec **Docker** via **Laravel Sail**, permettant d'isoler l'environnement de développement (Serveur Web, DB, Mailpit).
+*   **Infrastructure & DevOps** : Containerisation complète avec **Docker** via **Laravel Sail**. L'environnement de développement est totalement isolé et configuré sur le **Port 8085** pour le serveur web (afin d'éviter les conflits de ports sous Windows/WSL2).
 *   **Serveur d'Email (Test)** : Implémentation de **Mailpit** sur le port 8030 pour l'interception et le débogage sécurisé des envois locaux d'emails.
 
 ---
