@@ -3,9 +3,14 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="fw-bold m-0">Gestion des Étudiants</h3>
-    <a href="{{ route('admin.etudiants.create') }}" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Ajouter un Étudiant
-    </a>
+    <div class="d-flex gap-2">
+        <a href="{{ route('admin.etudiants.export') }}" class="btn btn-outline-danger fw-bold shadow-sm">
+            <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exporter PDF
+        </a>
+        <a href="{{ route('admin.etudiants.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Ajouter un Étudiant
+        </a>
+    </div>
 </div>
 
 <!-- Filtres -->

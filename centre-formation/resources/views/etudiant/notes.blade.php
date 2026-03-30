@@ -6,6 +6,11 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold m-0"><i class="bi bi-journal-check me-2 text-primary"></i>Vos évaluations</h3>
+        @if($notes->isNotEmpty())
+            <a href="{{ route('etudiant.notes.export') }}" class="btn btn-outline-primary fw-bold shadow-sm">
+                <i class="bi bi-file-earmark-pdf-fill me-2"></i>Télécharger Relevé (PDF)
+            </a>
+        @endif
     </div>
 
     @if($notes->isEmpty())
